@@ -1,6 +1,4 @@
-alert("app.js SÍ se está ejecutando");
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
   // =====================
   // Datos
@@ -25,7 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Estado
   // =====================
   let ratings = {};
-  equipos.forEach(e => ratings[e] = RATING_INICIAL);
+  equipos.forEach(e => {
+    ratings[e] = RATING_INICIAL;
+  });
 
   // =====================
   // Elo
@@ -59,7 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnNew = document.getElementById("btnNew");
   const topBox = document.getElementById("topBox");
 
-  let currentA, currentB;
+  let currentA = null;
+  let currentB = null;
 
   function randomPair() {
     currentA = equipos[Math.floor(Math.random() * equipos.length)];
@@ -78,18 +79,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     topBox.innerHTML = arr.map((e, i) => `
       <div class="toprow">
-        <div><b>${i + 1}.</b> ${e.equipo}</div>
+        <div><strong>${i + 1}.</strong> ${e.equipo}</div>
         <div>${e.rating.toFixed(1)}</div>
       </div>
     `).join("");
   }
 
-  btnA.addEventListener("click", () => {
+  btnA.addEventListener("click", function () {
     updateElo(currentA, currentB, "A");
     randomPair();
   });
 
-  btnB.addEventListener("click", () => {
+  btnB.addEventListener("click", function () {
     updateElo(currentA, currentB, "B");
     randomPair();
   });
