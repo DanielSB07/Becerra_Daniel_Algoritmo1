@@ -1,3 +1,5 @@
+alert("app.js SÍ se está ejecutando");
+
 document.addEventListener("DOMContentLoaded", () => {
 
   // =====================
