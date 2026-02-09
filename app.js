@@ -1,60 +1,102 @@
-// =====================
-// Datos
-// =====================
-const equipos = [
-  "Real Madrid",
-  "Barcelona",
-  "Bayern Múnich",
-  "Liverpool",
-  "AC Milan",
-  "Inter de Milán",
-  "Manchester United",
-  "Chelsea",
-  "Borussia Dortmund",
-  "Paris Saint-Germain"
-];
+document.addEventListener("DOMContentLoaded", () => {
 
-const RATING_INICIAL = 1000;
-const K = 32;
+  // =====================
+  // Datos
+  // =====================
+  const equipos = [
+    "Real Madrid",
+    "Barcelona",
+    "Bayern Múnich",
+    "Liverpool",
+    "AC Milan",
+    "Inter de Milán",
+    "Manchester United",
+    "Chelsea",
+    "Borussia Dortmund",
+    "Paris Saint-Germain"
+  ];
 
-// =====================
-// Estado
-// =====================
-let ratings = {};
-equipos.forEach(e => ratings[e] = RATING_INICIAL);
+  const RATING_INICIAL = 1000;
+  const K = 32;
 
-// =====================
-// Elo
-// =====================
-function expectedScore(ra, rb) {
-  return 1 / (1 + Math.pow(10, (rb - ra) / 400));
-}
+  // =====================
+  // Estado
+  // =====================
+  let ratings = {};
+  equipos.forEach(e => ratings[e] = RATING_INICIAL);
 
-function updateElo(a, b, winner) {
-  const ra = ratings[a];
-  const rb = ratings[b];
+  // =====================
+  // Elo
+  // =====================
+  function expectedScore(ra, rb) {
+    return 1 / (1 + Math.pow(10, (rb - ra) / 400));
+  }
 
-  const ea = expectedScore(ra, rb);
-  const eb = expectedScore(rb, ra);
+  function updateElo(a, b, winner) {
+    const ra = ratings[a];
+    const rb = ratings[b];
 
-  const sa = winner === "A" ? 1 : 0;
-  const sb = winner === "B" ? 1 : 0;
+    const ea = expectedScore(ra, rb);
+    const eb = expectedScore(rb, ra);
 
-  ratings[a] = ra + K * (sa - ea);
-  ratings[b] = rb + K * (sb - eb);
-}
+    const sa = winner === "A" ? 1 : 0;
+    const sb = winner === "B" ? 1 : 0;
 
-// =====================
-// UI
-// =====================
-const labelA = document.getElementById("labelA");
-const labelB = document.getElementById("labelB");
-const btnA = document.getElementById("btnA");
-const btnB = document.getElementById("btnB");
-const btnTop = document.getElementById("btnTop");
-const btnNew = document.getElementById("btnNew");
-const topBox = document.getElementById("topBox");
+    ratings[a] = ra + K * (sa - ea);
+    ratings[b] = rb + K * (sb - eb);
+  }
 
-let currentA, currentB;
+  // =====================
+  // UI
+  // =====================
+  const labelA = document.getElementById("labelA");
+  const labelB = document.getElementById("labelB");
+  const btnA = document.getElementById("btnA");
+  const btnB = document.getElementById("btnB");
+  const btnTop = document.getElementById("btnTop");
+  const btnNew = document.getElementById("btnNew");
+  const topBox = document.getElementById("topBox");
 
-function r
+  let currentA, currentB;
+
+  function randomPair() {
+    currentA = equipos[Math.floor(Math.random() * equipos.length)];
+    do {
+      currentB = equipos[Math.floor(Math.random() * equipos.length)];
+    } while (currentA === currentB);
+
+    labelA.textContent = currentA;
+    labelB.textContent = currentB;
+  }
+
+  function renderTop() {
+    const arr = Object.entries(ratings)
+      .map(([equipo, rating]) => ({ equipo, rating }))
+      .sort((a, b) => b.rating - a.rating);
+
+    topBox.innerHTML = arr.map((e, i) => `
+      <div class="toprow">
+        <div><b>${i + 1}.</b> ${e.equipo}</div>
+        <div>${e.rating.toFixed(1)}</div>
+      </div>
+    `).join("");
+  }
+
+  btnA.addEventListener("click", () => {
+    updateElo(currentA, currentB, "A");
+    randomPair();
+  });
+
+  btnB.addEventListener("click", () => {
+    updateElo(currentA, currentB, "B");
+    randomPair();
+  });
+
+  btnTop.addEventListener("click", renderTop);
+  btnNew.addEventListener("click", randomPair);
+
+  // Init
+  randomPair();
+  renderTop();
+
+});
