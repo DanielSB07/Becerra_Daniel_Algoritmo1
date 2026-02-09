@@ -1,0 +1,126 @@
+:root {
+  --bg: #ffffff;
+  --panel: #f5f7fa;
+  --border: #d0d7de;
+  --text: #000000;
+  --blue: #0057ff;
+  --blue-soft: #e8f0ff;
+
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.wrap {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+.sub {
+  color: #444;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.question {
+  background: var(--blue-soft);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.duel {
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 800px) {
+  .duel {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pick {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.pick:hover {
+  border-color: var(--blue);
+}
+
+.tag {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: var(--blue);
+  color: white;
+  text-align: center;
+  line-height: 28px;
+  border-radius: 8px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.primary {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ghost {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.topbox {
+  margin-bottom: 10px;
+}
+
+.toprow {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.foot {
+  text-align: center;
+  color: #555;
+}
