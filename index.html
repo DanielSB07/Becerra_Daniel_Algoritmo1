@@ -3,21 +3,50 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FootballMash — Historia de equipos europeos</title>
+  <title>FootballMash — Ranking de equipos europeos</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <header class="wrap">
     <h1>⚽ FootballMash</h1>
-    <p class="sub">Comparación A/B para construir rankings de historia del fútbol europeo</p>
+    <p class="sub">Comparación A/B para construir rankings de fútbol europeo</p>
   </header>
 
   <main class="wrap grid">
 
+    <!-- PASO 1 -->
     <section class="card">
-      <h2>1) Vota</h2>
-      <p class="question">¿Qué equipo tiene mejor historia en Europa?</p>
+      <h2>1) Configura</h2>
+
+      <label>Tipo</label>
+      <select id="tipoSelect">
+        <option value="nuevo">Nuevo fan</option>
+        <option value="fan">Fan</option>
+        <option value="pro">Profesional</option>
+        <option value="dir">Directivo</option>
+      </select>
+
+      <label>Contexto</label>
+      <select id="contextoSelect">
+        <option value="historia">¿Qué equipo tiene mejor historia en Europa?</option>
+        <option value="titulos">¿Qué equipo tiene mayores títulos internacionales?</option>
+        <option value="duelos">¿Qué equipo le ha ganado al otro más veces?</option>
+        <option value="plantel">¿Qué equipo tiene mejor plantel actualmente?</option>
+      </select>
+
+      <div class="row">
+        <button id="btnNew" class="ghost">🔁 Nuevo duelo</button>
+        <button id="btnReset" class="danger">🧹 Reiniciar</button>
+      </div>
+
+      <p class="hint">El ranking cambia según el tipo y el contexto.</p>
+    </section>
+
+    <!-- PASO 2 -->
+    <section class="card">
+      <h2>2) Elige</h2>
+      <p id="question" class="question">—</p>
 
       <div class="duel">
         <button id="btnA" class="pick">
@@ -31,13 +60,16 @@
         </button>
       </div>
 
-      <button id="btnNew" class="ghost">🔁 Nuevo duelo</button>
+      <p class="hint">Cada voto ajusta el ranking usando Elo.</p>
+
+      <button id="btnTop" class="primary">🏁 Ver ranking</button>
     </section>
 
+    <!-- PASO 3 -->
     <section class="card">
-      <h2>2) Ranking</h2>
+      <h2>3) Ranking (Top 10)</h2>
       <div id="topBox" class="topbox"></div>
-      <button id="btnTop" class="primary">🏆 Ver ranking</button>
+      <p class="hint">Ranking filtrado por tipo y contexto.</p>
     </section>
 
   </main>
